@@ -1,0 +1,32 @@
+name: 'gymly'
+
+services:
+  php:
+    container_name: gymly-php
+    build:
+      target: php-dev
+      context: .
+    volumes:
+      - .:/app
+      - .docker/php/development.ini:/usr/local/etc/php/conf.d/zz-php.ini
+    environment:
+      PHP_IDE_CONFIG: "serverName=gymly.srv"
+    command: rr serve --config .rr.dev.yaml
+    ports:
+      - "8080:8080"
+
+  db:
+    container_name: gymly-db
+    image: postgres:16-alpine
+    volumes:
+      - db:/var/lib/postgresql/data/pgdata
+    environment:
+      POSTGRES_USER: gymly
+      POSTGRES_PASSWORD: gymly
+      POSTGRES_DB: gymly
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "12009:5432"
+
+volumes:
+  db: ~

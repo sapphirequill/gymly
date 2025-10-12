@@ -1,0 +1,20 @@
+parameters:
+    level: 6
+    paths:
+        - bin/
+        - config/
+        - public/
+        - src/
+        - tests/
+    treatPhpDocTypesAsCertain: false
+    excludePaths:
+        - tests/bootstrap.php
+    ignoreErrors:
+        - message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert::#'
+          paths:
+              - tests
+        - identifier: missingType.iterableValue
+          paths:
+              - tests
+              - src/Infrastructure/Persistence/Projection/Doctrine/Entity
+              - src/Infrastructure/Persistence/EventStore/Doctrine/Entity
