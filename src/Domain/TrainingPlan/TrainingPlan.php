@@ -140,6 +140,7 @@ final class TrainingPlan extends AggregateRoot
         foreach ($this->exerciseRequirements as $index => $requirement) {
             if ($requirement->exerciseCode->equals($event->exerciseCode)) {
                 unset($this->exerciseRequirements[$index]);
+
                 break;
             }
         }

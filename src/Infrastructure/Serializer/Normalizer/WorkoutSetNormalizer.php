@@ -27,17 +27,19 @@ final class WorkoutSetNormalizer implements NormalizerInterface, DenormalizerInt
     }
 
     /**
-     * @param WorkoutSet $object
-     *
      * @return array{exerciseCode:string,repetitions:int,weight:array{value:float,unit:string}}
      */
-    public function normalize($object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
-        $weightData = new WeightNormalizer()->normalize($object->weight, $format, $context);
+        if (!$data instanceof WorkoutSet) {
+            throw new InvalidArgumentException('WorkoutSet normalizer expects WorkoutSet instance.');
+        }
+
+        $weightData = new WeightNormalizer()->normalize($data->weight, $format, $context);
 
         return [
-            'exerciseCode' => new ExerciseCodeNormalizer()->normalize($object->exerciseCode),
-            'repetitions' => $object->repetitions,
+            'exerciseCode' => new ExerciseCodeNormalizer()->normalize($data->exerciseCode),
+            'repetitions' => $data->repetitions,
             'weight' => $weightData,
         ];
     }

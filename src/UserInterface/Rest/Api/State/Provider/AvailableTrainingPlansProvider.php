@@ -9,13 +9,19 @@ use ApiPlatform\State\ProviderInterface;
 use App\Application\Port\QueryBus;
 use App\Application\Query\AvailableTrainingPlans\ListAvailableTrainingPlansQuery;
 
+/**
+ * @implements ProviderInterface<object>
+ */
 final readonly class AvailableTrainingPlansProvider implements ProviderInterface
 {
     public function __construct(private QueryBus $queryBus)
     {
     }
 
-    public function provide(Operation $operation, array $uriVariables = [], array $context = []): array
+    /**
+     * @return array<int, object>|object|null
+     */
+    public function provide(Operation $operation, array $uriVariables = [], array $context = []): array|object|null
     {
         return $this->queryBus->query(new ListAvailableTrainingPlansQuery());
     }

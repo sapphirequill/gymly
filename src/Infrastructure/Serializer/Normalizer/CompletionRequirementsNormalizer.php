@@ -26,15 +26,17 @@ final class CompletionRequirementsNormalizer implements NormalizerInterface, Den
     }
 
     /**
-     * @param CompletionRequirements $object
-     *
      * @return array<int, array{exerciseCode:string,minSets:int}>
      */
-    public function normalize($object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
+        if (!$data instanceof CompletionRequirements) {
+            throw new InvalidArgumentException('CompletionRequirements normalizer expects CompletionRequirements instance.');
+        }
+
         $normalizer = new MinSetsCompletionRequirementNormalizer();
 
-        return \array_map(static fn(MinSetsCompletionRequirement $req): array => $normalizer->normalize($req, $format, $context), $object->minSetsCompletionRequirements);
+        return \array_map(static fn (MinSetsCompletionRequirement $req): array => $normalizer->normalize($req, $format, $context), $data->minSetsCompletionRequirements);
     }
 
     public function supportsDenormalization($data, string $type, ?string $format = null, array $context = []): bool
@@ -50,6 +52,7 @@ final class CompletionRequirementsNormalizer implements NormalizerInterface, Den
 
         $normalizer = new MinSetsCompletionRequirementNormalizer();
         $requirements = [];
+
         foreach ($data as $item) {
             if (!\is_array($item)) {
                 throw new InvalidArgumentException('Invalid structure inside CompletionRequirements array.');

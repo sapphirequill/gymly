@@ -26,15 +26,17 @@ final class WeightNormalizer implements NormalizerInterface, DenormalizerInterfa
     }
 
     /**
-     * @param Weight $object
-     *
      * @return array{value:float,unit:string}
      */
-    public function normalize($object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
+        if (!$data instanceof Weight) {
+            throw new InvalidArgumentException('Weight normalizer expects Weight instance.');
+        }
+
         return [
-            'value' => $object->value,
-            'unit' => $object->unit->getLabel(),
+            'value' => $data->value,
+            'unit' => $data->unit->getLabel(),
         ];
     }
 

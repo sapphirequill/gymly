@@ -12,22 +12,28 @@ use App\Domain\Shared\ValueObject\ExerciseCode;
 use App\Domain\TrainingPlan\ValueObject\ExerciseRequirement;
 use App\UserInterface\Rest\Request\CreateTrainingPlanRequest;
 use App\UserInterface\Rest\Response\ResourceCreatedResponse;
+use InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @implements ProcessorInterface<mixed, mixed>
+ */
 final readonly class CreateTrainingPlanProcessor implements ProcessorInterface
 {
     public function __construct(private CommandBus $commandBus)
     {
     }
 
-    /**
-     * @param CreateTrainingPlanRequest $data
-     */
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): mixed
     {
+        if (!$data instanceof CreateTrainingPlanRequest) {
+            throw new InvalidArgumentException('Expected CreateTrainingPlanRequest.');
+        }
+
         $id = Uuid::uuid4();
 
         $exerciseRequirements = [];
+
         foreach ($data->exerciseRequirements as $req) {
             $exerciseRequirements[] = new ExerciseRequirement(
                 ExerciseCode::fromCode($req->exerciseCode),

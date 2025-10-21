@@ -24,12 +24,13 @@ final class ExerciseCodeNormalizer implements NormalizerInterface, DenormalizerI
         return $data instanceof ExerciseCode;
     }
 
-    /**
-     * @param ExerciseCode $object
-     */
-    public function normalize($object, ?string $format = null, array $context = []): string
+    public function normalize(mixed $data, ?string $format = null, array $context = []): string
     {
-        return (string) $object;
+        if (!$data instanceof ExerciseCode) {
+            throw new InvalidArgumentException('ExerciseCode normalizer expects ExerciseCode instance.');
+        }
+
+        return (string) $data;
     }
 
     public function supportsDenormalization($data, string $type, ?string $format = null, array $context = []): bool

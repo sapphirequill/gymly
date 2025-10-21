@@ -26,15 +26,17 @@ final class ExerciseRequirementNormalizer implements NormalizerInterface, Denorm
     }
 
     /**
-     * @param ExerciseRequirement $object
-     *
      * @return array{exerciseCode:string,minSets:int}
      */
-    public function normalize($object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
+        if (!$data instanceof ExerciseRequirement) {
+            throw new InvalidArgumentException('ExerciseRequirement normalizer expects ExerciseRequirement instance.');
+        }
+
         return [
-            'exerciseCode' => new ExerciseCodeNormalizer()->normalize($object->exerciseCode),
-            'minSets' => $object->minSets,
+            'exerciseCode' => new ExerciseCodeNormalizer()->normalize($data->exerciseCode),
+            'minSets' => $data->minSets,
         ];
     }
 

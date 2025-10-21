@@ -11,6 +11,9 @@ use App\Application\Port\CommandBus;
 use App\Domain\Shared\ValueObject\ExerciseCode;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @implements ProcessorInterface<mixed, mixed>
+ */
 final readonly class RemoveExerciseFromTrainingPlanProcessor implements ProcessorInterface
 {
     public function __construct(private CommandBus $commandBus)

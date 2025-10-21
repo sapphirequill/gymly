@@ -29,6 +29,7 @@ final readonly class DoctrineCurrentWorkoutFinder implements CurrentWorkoutFinde
         $requirements = null;
         if (null !== $entity->getCompletionRequirements()) {
             $requirements = [];
+
             foreach ($entity->getCompletionRequirements() as $req) {
                 $requirements[] = new MinSetsCompletionRequirementReadModel(
                     $req['exerciseCode'],
@@ -38,6 +39,7 @@ final readonly class DoctrineCurrentWorkoutFinder implements CurrentWorkoutFinde
         }
 
         $performed = [];
+
         foreach ($entity->getPerformedWorkoutSets() as $set) {
             $weight = null;
             if (isset($set['weight'])) {

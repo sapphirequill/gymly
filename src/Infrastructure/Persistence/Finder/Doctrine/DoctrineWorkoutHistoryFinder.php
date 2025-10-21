@@ -21,10 +21,13 @@ final readonly class DoctrineWorkoutHistoryFinder implements WorkoutHistoryFinde
     public function all(): array
     {
         $result = [];
+
         foreach ($this->repo->findAll() as $entity) {
             $exercises = [];
+
             foreach ($entity->getExercises() as $exercise) {
                 $sets = [];
+
                 foreach ($exercise['sets'] as $set) {
                     $weight = null;
                     if (isset($set['weight'])) {

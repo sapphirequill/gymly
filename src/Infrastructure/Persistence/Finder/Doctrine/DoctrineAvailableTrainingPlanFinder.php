@@ -19,8 +19,10 @@ final readonly class DoctrineAvailableTrainingPlanFinder implements AvailableTra
     public function all(): array
     {
         $result = [];
+
         foreach ($this->repo->findAll() as $entity) {
             $requirements = [];
+
             foreach ($entity->getExerciseRequirements() as $req) {
                 $requirements[] = new ExerciseRequirementReadModel(
                     $req['exerciseCode'],

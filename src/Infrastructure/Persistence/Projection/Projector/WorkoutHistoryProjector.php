@@ -28,7 +28,7 @@ final readonly class WorkoutHistoryProjector implements EventSubscriberInterface
 
     public function onCompleted(WorkoutSessionCompleted $event): void
     {
-        $current = $this->currentWorkoutRepo->find((string) $event->workoutSessionId);
+        $current = $this->currentWorkoutRepo->find();
 
         Assert::notNull($current);
 

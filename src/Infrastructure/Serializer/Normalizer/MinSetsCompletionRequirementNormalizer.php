@@ -26,15 +26,17 @@ final class MinSetsCompletionRequirementNormalizer implements NormalizerInterfac
     }
 
     /**
-     * @param MinSetsCompletionRequirement $object
-     *
      * @return array{exerciseCode:string,minSets:int}
      */
-    public function normalize($object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
+        if (!$data instanceof MinSetsCompletionRequirement) {
+            throw new InvalidArgumentException('MinSetsCompletionRequirement normalizer expects MinSetsCompletionRequirement instance.');
+        }
+
         return [
-            'exerciseCode' => new ExerciseCodeNormalizer()->normalize($object->exerciseCode),
-            'minSets' => $object->minSets,
+            'exerciseCode' => new ExerciseCodeNormalizer()->normalize($data->exerciseCode),
+            'minSets' => $data->minSets,
         ];
     }
 

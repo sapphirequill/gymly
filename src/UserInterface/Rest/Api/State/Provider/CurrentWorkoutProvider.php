@@ -9,6 +9,9 @@ use ApiPlatform\State\ProviderInterface;
 use App\Application\Port\QueryBus;
 use App\Application\Query\CurrentWorkout\GetCurrentWorkoutQuery;
 
+/**
+ * @implements ProviderInterface<object>
+ */
 final readonly class CurrentWorkoutProvider implements ProviderInterface
 {
     public function __construct(private QueryBus $queryBus)

@@ -18,6 +18,7 @@ final readonly class DoctrinePersonalRecordFinder implements PersonalRecordFinde
     public function all(): array
     {
         $result = [];
+
         foreach ($this->repo->findAll() as $entity) {
             $result[] = new PersonalRecordReadModel(
                 $entity->getId(),

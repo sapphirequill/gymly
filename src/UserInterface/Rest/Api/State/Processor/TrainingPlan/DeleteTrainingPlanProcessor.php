@@ -10,6 +10,9 @@ use App\Application\Command\TrainingPlan\DeleteTrainingPlanCommand;
 use App\Application\Port\CommandBus;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @implements ProcessorInterface<mixed, mixed>
+ */
 final readonly class DeleteTrainingPlanProcessor implements ProcessorInterface
 {
     public function __construct(private CommandBus $commandBus)

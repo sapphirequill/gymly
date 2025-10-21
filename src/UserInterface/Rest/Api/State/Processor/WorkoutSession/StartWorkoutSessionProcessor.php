@@ -11,19 +11,24 @@ use App\Application\Port\CommandBus;
 use App\UserInterface\Rest\Request\StartWorkoutSessionRequest;
 use App\UserInterface\Rest\Response\ResourceCreatedResponse;
 use DateTimeImmutable;
+use InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @implements ProcessorInterface<mixed, mixed>
+ */
 final readonly class StartWorkoutSessionProcessor implements ProcessorInterface
 {
     public function __construct(private CommandBus $commandBus)
     {
     }
 
-    /**
-     * @param StartWorkoutSessionRequest $data
-     */
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): mixed
     {
+        if (!$data instanceof StartWorkoutSessionRequest) {
+            throw new InvalidArgumentException('Expected StartWorkoutSessionRequest.');
+        }
+
         $id = Uuid::uuid4();
 
         $this->commandBus->dispatch(new StartWorkoutSessionCommand(

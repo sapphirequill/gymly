@@ -9,6 +9,9 @@ use ApiPlatform\State\ProcessorInterface;
 use App\Application\Command\WorkoutSession\CompleteWorkoutSessionCommand;
 use App\Application\Port\CommandBus;
 
+/**
+ * @implements ProcessorInterface<mixed, mixed>
+ */
 final readonly class CompleteWorkoutSessionProcessor implements ProcessorInterface
 {
     public function __construct(private CommandBus $commandBus)
