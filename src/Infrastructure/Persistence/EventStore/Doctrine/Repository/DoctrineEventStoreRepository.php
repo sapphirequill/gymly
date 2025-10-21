@@ -10,7 +10,7 @@ use App\Infrastructure\Persistence\EventStore\StoredEvent as StoredEventVO;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\UuidInterface;
 
-final readonly class DoctrineEventStore implements EventStore
+final readonly class DoctrineEventStoreRepository implements EventStore
 {
     public function __construct(private EntityManagerInterface $entityManager)
     {
