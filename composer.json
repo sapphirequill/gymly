@@ -89,7 +89,7 @@
             "@auto-scripts"
         ],
         "tests:unit": "phpunit tests/Unit",
-        "tests:functional": "echo \"\n\nFunctional tests will be running here...\n\n\" && exit 0",
+        "tests:behat": "echo \"\n\nBehat tests will be running here...\n\n\" && exit 0",
         "cs:check": "php-cs-fixer fix --dry-run --diff --verbose --ansi",
         "cs:fix": "php-cs-fixer fix --diff --verbose --ansi",
         "phpstan": "php -d memory_limit=512M ./vendor/bin/phpstan analyse",
@@ -98,7 +98,7 @@
         "rector:dry": "rector process --dry-run --ansi",
         "static-analysis": ["@cs:check", "@phpstan", "@rector:dry", "@phparkitect"],
         "sa": "@static-analysis",
-        "tests": ["@tests:unit", "@tests:functional"],
+        "tests": ["@tests:unit", "@tests:behat"],
         "quality-assurance": ["@static-analysis", "@tests"],
         "qa": "@quality-assurance"
     },
